@@ -40,9 +40,8 @@ def handle_register(data):
 
     print(f"[REGISTER] {username} (sid={sid})")
 
-@socketio.on('send_plain')
+@socketio.on('send_plain') 
 def handle_send_plain(data):
-
     frm = data.get('from')
     to = data.get('to')
     plaintext = data.get('message')
@@ -51,15 +50,16 @@ def handle_send_plain(data):
         emit('send_ack', {'ok': False, 'error': 'bad payload'})
         return
 
-    if to not in users:
-        emit('send_ack', {'ok': False, 'error': 'recipient offline or unknown'})
+    if to not in users or frm not in users:
+        emit('send_ack', {'ok': False, 'error': 'sender/recipient offline or unknown'})
         return
     
+    sender_key = users[frm]['key']
+    ciphertext = encrypt_buffer(plaintext, sender_key)
+    
     recv_key = users[to]['key']
-    ciphertext = encrypt_buffer(plaintext, recv_key)
-
     try:
-        decrypted = decrypt_buffer(ciphertext, recv_key)
+        decrypted = decrypt_buffer(ciphertext, recv_key) 
     except Exception as e:
         decrypted = "(decrypt failed on server)"
 
