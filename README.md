@@ -1,3 +1,5 @@
 ## Tugas 2 Keamanan Informasi C
-1. Muhammad Ammar Ghifari - 5025231109
-2. Filbert Hainsly Martin - 5025231256
+| Name           | NRP        | Kelas     |
+| ---            | ---        | ----------|
+| Muhammad Ammar Ghifari | 5025231109 | Keamanan Informasi C |
+| Filbert Hainsly Martin | 5025231256 | Keamanan Informasi C |
